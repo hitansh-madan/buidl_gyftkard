@@ -1,8 +1,27 @@
 import { useConnectWallet } from "@web3-onboard/react";
+import { useEffect } from "react";
 import Home from "./Home";
 
 const App = () => {
   const [{ wallet }, connect] = useConnectWallet();
+
+  useEffect(() => {
+    let label = localStorage.getItem("label");
+    console.log(label);
+    if (label) {
+      connect({
+        autoSelect: {
+          label: label,
+          disableModals: true,
+        },
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("label", wallet?.label);
+    console.log(wallet?.label);
+  }, [wallet]);
 
   return (
     <div>
