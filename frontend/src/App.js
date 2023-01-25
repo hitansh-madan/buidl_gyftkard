@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import Home from "./Home";
 
 const App = () => {
-  const [{ wallet }, connect] = useConnectWallet();
+  const [{ wallet, connecting }, connect] = useConnectWallet();
 
   useEffect(() => {
     let label = localStorage.getItem("label");
@@ -28,6 +28,10 @@ const App = () => {
       <div className="h-screen flex flex-col">
         {wallet ? (
           <Home />
+        ) : connecting ? (
+          <button className="h-12 m-auto px-8 rounded-2xl font-extrabold" onClick={() => connect()}>
+            Connecting
+          </button>
         ) : (
           <button
             className="h-12 m-auto px-8 rounded-2xl bg-emerald-500 text-white font-extrabold"
